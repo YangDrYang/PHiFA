@@ -4,8 +4,6 @@ clear all
 clf
 close all
 
-addpath(genpath('../TianGong1'));
-
 %% Create Propagator
 % global propagator
 propagator = clPropagator.instance();
@@ -68,12 +66,11 @@ target = loadDSPOSEMeteorix();
 % target.hitmethod = eHitMethod.Beam;
 target.hitmethod = eHitMethod.Area;
 
-%% create Laserstation
-station = createISSLaserstation();
-
 propagator.init(initstate);
 
-sa(1) = createDefaultSurfaceAttributes(station.PulseLength, station.Wavelength, 26.98);
+PulseLength = 1.0e-9;
+WaveLength = 1.0640e-06;
+sa(1) = createDefaultSurfaceAttributes(PulseLength, WaveLength, 26.98);
 sa(1).bUseDeviation = true;
 sa(2) = sa(1);
 sa(3) = sa(1);
