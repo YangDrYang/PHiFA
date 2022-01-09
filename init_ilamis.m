@@ -4,7 +4,6 @@ disp('Adding path...');
 addpath('.');
 addpath('./thirdparty');
 addpath(genpath('propagator'));
-addpath(genpath('beampropagation'));
 % addpath(genpath('functions'));
 addpath('./functions');
 addpath('./functions/ABM8Integrator');
