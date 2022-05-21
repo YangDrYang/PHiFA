@@ -1,4 +1,4 @@
-disp('Initializing ILAMIS');
+disp('Initialising PHiFA');
 
 disp('Adding path...');
 addpath('.');
