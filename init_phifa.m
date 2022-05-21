@@ -15,5 +15,8 @@ disp('Creating folders...');
 if ~exist('figures', 'dir')
     mkdir('figures');
 end
+if ~exist('logfiles', 'dir')
+    mkdir('logfiles');
+end
 
 disp('Welcome! Lets do this.');

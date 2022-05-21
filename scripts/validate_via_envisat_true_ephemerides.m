@@ -17,7 +17,8 @@ epoch = 56664.8704;
 orb_envisat = initialisation_tle('./inputfiles/envisat_tle.txt',epoch);
 Y0 = [orb_envisat; q0; w0];
 initstate = clPropagatorInitialValues();
-initstate.proptime = 3*24*60*60;
+% initstate.proptime = 3*24*60*60;
+initstate.proptime = 60*60;
 initstate.mjd = 56727.85589;
 initstate.year = 2014;
 initstate.mon = 3;
@@ -135,76 +136,77 @@ for i = 1:size(eph{1},2)
 end
 
 
-%% compare
-envisat_eph = loadEnvisatMahootiTrueEphemerides();
-envisat_eph_eci = ecef2eci_ephemerides(envisat_eph(:,1:121), mjd_utc_start);
-orbDiff1 = (envisat_eph_eci(2:7,:) - eph{1,1}(2:7,1:60:end))';
-orbDiff2 = (envisat_eph_eci(2:7,:) - eph{2,1}(2:7,1:60:end))';
-orbDiff3 = (envisat_eph_eci(2:7,:) - eph{3,1}(2:7,1:60:end))';
-% compareEphemerides(envisat_eph_eci, eph{1,1}(:,1:60:end));
-% [rotOrbAng_Ref,rotOrbAng_PHiFA,diffRotOrbAng] = ephRotOrbAngdiff(envisat_eph_eci,eph{1},diag(propagator.rso.moi));
-
-norm(orbDiff1(end,1:3))
-norm(orbDiff2(end,1:3))
-norm(orbDiff3(end,1:3))
-
-angles = zeros(3,length(eph{1}(1,:)));
-for j = 1:size(angles,2)
-    [angZ, angY, angX] = quat2angle(norm_quat(eph{1}(8:11,j))', 'ZYX' );
-    angles(1:3,j) = [angZ, angY, angX].*180/pi;
-end
-
-npt = envisat_eph_eci(1,end);
-
-figure
-subplot(2,2,1)
-plot(eph{1}(1,:),eph{1,1}(2:4,:)')
-xlim([0,npt]);
-grid on
-xlabel('Time of Propagation (Sec)','Fontsize',14);
-ylabel({'Position', 'Components (m)'},'Fontsize',14)
-legend('x','y','z','Fontsize',14)
-
-
-subplot(2,2,2)
-plot(eph{1}(1,:),eph{1,1}(5:7,:)')
-xlim([0,npt]);
-grid on
-xlabel('Time of Propagation (Sec)','Fontsize',14);
-ylabel({'Velocity', 'Components (m/s)'},'Fontsize',14)
-legend('v_x','v_y','v_z','Fontsize',14)
-
-subplot(2,2,3)
-plot(eph{1}(1,:),angles')
-xlim([0,npt]);
-grid on
-xlabel('Time of Propagation (Sec)','Fontsize',14);
-ylabel({'Angular', 'Components (rad)'},'Fontsize',14)
-legend('yaw(\phi)','pitch(\theta)','roll(\psi)','Fontsize',14)
-
-subplot(2,2,4)
-plot(eph{1}(1,:),eph{1,1}(12:14,:)')
-xlim([0,npt]);
-grid on
-xlabel('Time of Propagation (Sec)','Fontsize',14);
-ylabel({'Augular Velocity', 'Components (rad/s)'},'Fontsize',14)
-legend('\omega_{\phi}','\omega_{\theta}','\omega_{\psi}','Fontsize',14)
-title('6-DOF Propagation','Fontsize',14)
-
-
-figure
-subplot(2,1,1)
-plot(envisat_eph_eci(1,:),orbDiff1(:,1:3),'DisplayName','orbDiff1(:,1:3)')
-xlim([0,npt]);
-grid on
-ylabel({'Position', 'Components (m)'},'Fontsize',14)
-legen('x','y','z','Fontsize',14)
-title('Difference wrt. True Ephemerides','Fontsize',14)
-subplot(2,1,2)
-plot(envisat_eph_eci(1,:),orbDiff1(:,4:6),'DisplayName','orbDiff1(:,4:6)')
-xlim([0,npt]);
-grid on
-xlabel('Time of Propagation (Sec)','Fontsize',14);
-ylabel({'Velocity', 'Components (m/s)'},'Fontsize',14)
-legend('v_x','v_y','v_z','Fontsize',14)
+% %% compare
+% mjd_utc_start = 56727.85589;
+% envisat_eph = loadEnvisatMahootiTrueEphemerides();
+% envisat_eph_eci = ecef2eci_ephemerides(envisat_eph(:,1:121), mjd_utc_start);
+% orbDiff1 = (envisat_eph_eci(2:7,:) - eph{1,1}(2:7,1:60:end))';
+% orbDiff2 = (envisat_eph_eci(2:7,:) - eph{2,1}(2:7,1:60:end))';
+% orbDiff3 = (envisat_eph_eci(2:7,:) - eph{3,1}(2:7,1:60:end))';
+% % compareEphemerides(envisat_eph_eci, eph{1,1}(:,1:60:end));
+% % [rotOrbAng_Ref,rotOrbAng_PHiFA,diffRotOrbAng] = ephRotOrbAngdiff(envisat_eph_eci,eph{1},diag(propagator.rso.moi));
+% 
+% norm(orbDiff1(end,1:3))
+% norm(orbDiff2(end,1:3))
+% norm(orbDiff3(end,1:3))
+% 
+% angles = zeros(3,length(eph{1}(1,:)));
+% for j = 1:size(angles,2)
+%     [angZ, angY, angX] = quat2angle(norm_quat(eph{1}(8:11,j))', 'ZYX' );
+%     angles(1:3,j) = [angZ, angY, angX].*180/pi;
+% end
+% 
+% npt = envisat_eph_eci(1,end);
+% 
+% figure
+% subplot(2,2,1)
+% plot(eph{1}(1,:),eph{1,1}(2:4,:)')
+% xlim([0,npt]);
+% grid on
+% xlabel('Time of Propagation (Sec)','Fontsize',14);
+% ylabel({'Position', 'Components (m)'},'Fontsize',14)
+% legend('x','y','z','Fontsize',14)
+% 
+% 
+% subplot(2,2,2)
+% plot(eph{1}(1,:),eph{1,1}(5:7,:)')
+% xlim([0,npt]);
+% grid on
+% xlabel('Time of Propagation (Sec)','Fontsize',14);
+% ylabel({'Velocity', 'Components (m/s)'},'Fontsize',14)
+% legend('v_x','v_y','v_z','Fontsize',14)
+% 
+% subplot(2,2,3)
+% plot(eph{1}(1,:),angles')
+% xlim([0,npt]);
+% grid on
+% xlabel('Time of Propagation (Sec)','Fontsize',14);
+% ylabel({'Angular', 'Components (rad)'},'Fontsize',14)
+% legend('yaw(\phi)','pitch(\theta)','roll(\psi)','Fontsize',14)
+% 
+% subplot(2,2,4)
+% plot(eph{1}(1,:),eph{1,1}(12:14,:)')
+% xlim([0,npt]);
+% grid on
+% xlabel('Time of Propagation (Sec)','Fontsize',14);
+% ylabel({'Augular Velocity', 'Components (rad/s)'},'Fontsize',14)
+% legend('\omega_{\phi}','\omega_{\theta}','\omega_{\psi}','Fontsize',14)
+% title('6-DOF Propagation','Fontsize',14)
+% 
+% 
+% figure
+% subplot(2,1,1)
+% plot(envisat_eph_eci(1,:),orbDiff1(:,1:3),'DisplayName','orbDiff1(:,1:3)')
+% xlim([0,npt]);
+% grid on
+% ylabel({'Position', 'Components (m)'},'Fontsize',14)
+% legen('x','y','z','Fontsize',14)
+% title('Difference wrt. True Ephemerides','Fontsize',14)
+% subplot(2,1,2)
+% plot(envisat_eph_eci(1,:),orbDiff1(:,4:6),'DisplayName','orbDiff1(:,4:6)')
+% xlim([0,npt]);
+% grid on
+% xlabel('Time of Propagation (Sec)','Fontsize',14);
+% ylabel({'Velocity', 'Components (m/s)'},'Fontsize',14)
+% legend('v_x','v_y','v_z','Fontsize',14)
 
