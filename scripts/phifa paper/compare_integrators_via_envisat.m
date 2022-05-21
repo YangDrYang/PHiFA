@@ -88,7 +88,8 @@ for i = 2:3
         
         odefcn = @RK45; 
         
-        for j = 1:0.5:6
+%         for j = 1:0.5:6
+        for j = 1
             initstate.proptime = j*60*60;
             propagator.init(initstate);
             tic
@@ -106,7 +107,8 @@ for i = 2:3
         tic       
         odefcn = @ABM8;
         
-        for j = 1:0.5:6
+%         for j = 1:0.5:6
+        for j = 1
             initstate.proptime = j*60*60;
             propagator.init(initstate);
             tic

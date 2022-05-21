@@ -9,6 +9,7 @@ This software is tested on MacOS.
 It is based on some open-source codes 
     Meysam Mahooti. High Precision Orbit Propagator (https://www.mathworks.com/matlabcentral/fileexchange/55167-high-precision-orbit-propagator), MATLAB Central File Exchange. Retrieved February 13, 2022.
     Luc Sagnières, D-SPOSE: Debris SPin/Orbit Simulation Environment (https://github.com/McGill-AML/D-SPOSE), GitHub.
+    Jeff Beck and David Vallado, SGP4 package.
 
 Instructions:
 

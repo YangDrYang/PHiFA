@@ -34,7 +34,7 @@ function rso = loadDSPOSEEnvisat()
     facets_panel = simplifyFacets(facets_panel, 0.001, 0.01);
     
     rso = clCompoundTarget();
-    rso.name = 'D-SPOSE EnviSat';
+    rso.name = 'EnviSat';
     
     tar_input = clCompoundTargetInput();
     

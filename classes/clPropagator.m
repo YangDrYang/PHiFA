@@ -335,7 +335,7 @@ classdef clPropagator < handle
             obj.used_integrator_fcn = func2str(odefcn);
             % global AuxParam
             fprintf('#->\t->\t##################\t<-\t<-#\n');
-            fprintf('Starting simulated Deorbiting of %s.\n', obj.rso.name);
+            fprintf('Starting simulation of %s.\n', obj.rso.name);
             fprintf('#->\t->\t##################\t<-\t<-#\n');
             if (obj.AuxParam.a_lase || obj.AuxParam.g_lase) && obj.stations_param.bPulsed
                 ustep = 1/obj.stations_param.repRate;
