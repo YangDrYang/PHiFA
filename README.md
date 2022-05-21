@@ -14,6 +14,6 @@ It is based on some open-source codes
 Instructions:
 
 1> run init_phifa.m to set up path;
-2> run one main function in scripts; it can take hours to finish.
+2> run one main function in scripts; it can take hours to finish, so set up a suitable propagation time before start running. 
 
 Any questions please email to Dr Yang Yang via yiyinfeixiong@gmail.com.
